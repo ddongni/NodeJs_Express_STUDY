@@ -4,6 +4,8 @@ var port = 3000;
 var fs = require('fs');
 var bodyParser = require('body-parser');
 var compression = require('compression');
+var helmet = require('helmet');
+app.use(helmet());
 var indexRouter = require('./routes/index');
 var topicRouter = require('./routes/topic');
 
@@ -23,7 +25,7 @@ app.get('*', function(request, response, next){
   });
 });
 
-app.use('/',indexRouter);
+app.use('/', indexRouter);
 app.use('/topic', topicRouter); // /topic 으로 시작하는 주소들에게 topicRouter 미들웨어 적용 
 
 app.use(function(req, res, next) {
