@@ -9,6 +9,9 @@ var qs = require('querystring');
 var bodyParser = require('body-parser');
 var compression = require('compression');
 
+//public 디렉토리에서 찾음
+app.use(express.static('public'));
+
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended:false}));
 
@@ -25,12 +28,14 @@ app.get('*', function(request, response, next){
 /* app.get('/', (req, res) => {
   res.send('Hello World!')
 })*/
-app.get('/',function(requset, response){
+app.get('/',function(request, response){
     var title = 'Welcome';
     var description = 'Hello, Node.js';
     var list = template.list(request.list);
     var html = template.HTML(title, list,
-      `<h2>${title}</h2>${description}`,
+      `<h2>${title}</h2>${description}
+      <img src="/images/hello.jpg" style="width:300px; display:block; margin-top:10px;">
+      `,
       `<a href="/create">create</a>`
     );
     response.send(html);
